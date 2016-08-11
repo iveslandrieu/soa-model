@@ -18,7 +18,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.params.ConnRoutePNames;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.SystemDefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
@@ -32,8 +32,6 @@ class ExternalResolver extends ResourceResolver {
 
 	private static final Logger log = LoggerFactory.getLogger(ExternalResolver.class)
 
-	String proxyHost
-	int proxyPort
 	int timeout = 10000
 
 	def resolve(input, baseDir) {
@@ -105,11 +103,7 @@ class ExternalResolver extends ResourceResolver {
 	}
 
 	private request(url) {
-		HttpClient client = new DefaultHttpClient();
-		if ( proxyHost ) {
-			HttpHost proxy = new HttpHost(proxyHost, proxyPort);
-			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-		}
+		HttpClient client = new SystemDefaultHttpClient();
 		HttpParams params = client.getParams();
 		HttpConnectionParams.setConnectionTimeout(params, timeout);
 

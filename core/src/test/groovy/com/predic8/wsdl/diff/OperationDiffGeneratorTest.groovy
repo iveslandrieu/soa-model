@@ -24,7 +24,9 @@ class OperationDiffGeneratorTest {
 
     @Before
 	void setUp() {
-        Assume.assumeTrue(!System.getenv('OFFLINETESTING'))
+    Assume.assumeTrue(!System.getenv('OFFLINETESTING'))
+    def stream = new URL('http://www.thomas-bayer.com/axis2/services/BLZService?wsdl').openStream()
+    // println stream.text
 		def parser = new WSDLParser()
 		wsdl1 = parser.parse('http://www.thomas-bayer.com/axis2/services/BLZService?wsdl')
 		parser.resourceResolver = new ClasspathResolver()

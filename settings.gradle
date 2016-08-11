@@ -1,0 +1,6 @@
+rootProject.name = 'soa-model-parent'
+include ':soa-model-core'
+include ':soa-model-distribution'
+
+project(':soa-model-core').projectDir = "$rootDir/core" as File
+project(':soa-model-distribution').projectDir = "$rootDir/distribution" as File

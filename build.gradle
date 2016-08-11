@@ -1,0 +1,39 @@
+allprojects {
+  apply plugin: 'maven'
+  group = 'com.predic8'
+  version = '1.5.4-TELENET-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'groovy'
+  sourceCompatibility = 1.5
+  targetCompatibility = 1.5
+  sourceSets {
+    main {
+      java {
+        srcDirs = []
+      }
+      groovy {
+        srcDir "src/main/java"
+      }
+    }
+  }
+
+  // Set system proxy settings here if it's needed
+  // tasks.withType(Test) {
+  //   systemProperty "http.proxyHost", "proxy.company.com" 
+  //   systemProperty "http.proxyPort", "3128"
+  //   systemProperty "https.proxyHost", "proxy.company.com" 
+  //   systemProperty "https.proxyPort", "3128"
+  // }
+
+  repositories {
+    jcenter()
+  }
+
+  test {
+    testLogging {
+      showStandardStreams = true
+    }
+  }
+}

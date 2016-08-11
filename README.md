@@ -59,3 +59,15 @@ Creating a soap request:
     //creator.createRequest(PortType name, Operation name, Binding name);
     creator.createRequest("ArticleServicePT", "create", "ArticleServicePTBinding");
     System.out.println(writer);
+
+How to build it with Gradle
+---------------------------
+Open console and type the following command.
+
+For Linux or Mac:
+
+    ./gradlew build
+
+For Windows:
+
+    gradlew.bat build

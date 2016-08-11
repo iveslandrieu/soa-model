@@ -10,3 +10,12 @@ temp
 /core/src/test/resources/wadl/yahoo.xml
 /.project
 /.settings/
+
+# Ignore Gradle config dir
+.gradle
+
+# Ignore Gradle output dir
+build/
+
+# Ignore Gradle GUI config
+/gradle-app.setting

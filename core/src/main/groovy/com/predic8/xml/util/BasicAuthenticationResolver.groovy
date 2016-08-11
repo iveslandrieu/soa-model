@@ -24,7 +24,7 @@ import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.SystemDefaultHttpClient;
 
 import com.predic8.schema.Import as SchemaImport
 import com.predic8.wsdl.Import as WsdlImport
@@ -37,8 +37,6 @@ class BasicAuthenticationResolver extends ResourceResolver {
   def baseDir = ''
   def username = ''
   def password = ''
-  def proxyHost
-  def proxyPort
   
   def resolve(input) {
     if ( input instanceof SchemaImport ) {
@@ -87,15 +85,12 @@ class BasicAuthenticationResolver extends ResourceResolver {
   }
 	
   private request(url) {
-    HttpClient client = new DefaultHttpClient();
+    HttpClient client = new SystemDefaultHttpClient();
     if ( username ) {
       client.params.authenticationPreemptive=true
       Credentials defaultcreds = new UsernamePasswordCredentials(username, password)
       client.state.setCredentials(AuthScope.ANY, defaultcreds)
     }
-    if ( proxyHost )
-      client.getHostConfiguration().setProxy(proxyHost, proxyPort)
-    
     HttpGet method = new HttpGet(url);
     method.params.setParameter(HttpMethodParams.USER_AGENT,"SOA Model (see http://membrane-soa.org)")
     int status = client.executeMethod(method);
