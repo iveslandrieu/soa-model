@@ -64,10 +64,19 @@ class ElementDiffGenerator extends UnitDiffGenerator {
 				new Difference(description: "${labelTypeElement} '${a.name}' ${labelHasChanged} ${labelFrom} ${a.schema.getPrefix(a.type?.namespaceURI)?:'xsd'}:${a.type?.localPart} ${labelTo} ${b.toString()}.",
 				type: 'element', breaks: ctx.exchange?true:null, exchange: a.exchange)
 			]
-		if(a.type != b.type) return [
-				new Difference(description:"${labelTypeElement} '${a.name}' ${labelHasChanged} ${labelFrom} ${a.schema.getPrefix(a.type.namespaceURI)?:'xsd'}:${a.type.localPart} ${labelTo} ${b.schema.getPrefix(b.type.namespaceURI)?:'xsd'}:${b.type.localPart}.",
-				type: 'element', breaks:ctx.exchange?true:null, exchange: a.exchange)
-			]
+		if(a.type != b.type) {
+				if(!a.type) {
+					return [new Difference(description:"${labelTypeElement} '${a.name}' ${labelHasChanged} ${labelFrom} an empty element ${labelTo} ${b.schema.getPrefix(b.type.namespaceURI)?:'xsd'}:${b.type.localPart}.",
+						type: 'element', breaks:ctx.exchange?true:null, exchange: a.exchange)]
+	
+				} else if (!b.type) {
+					return [new Difference(description:"${labelTypeElement} '${a.name}' ${labelHasChanged} ${labelFrom} ${a.schema.getPrefix(a.type.namespaceURI)?:'xsd'}:${a.type.localPart} ${labelTo} an empty element.",
+						type: 'element', breaks:ctx.exchange?true:null, exchange: a.exchange)]
+				} else {
+					return [new Difference(description:"${labelTypeElement} '${a.name}' ${labelHasChanged} ${labelFrom} ${a.schema.getPrefix(a.type.namespaceURI)?:'xsd'}:${a.type.localPart} ${labelTo} ${b.schema.getPrefix(b.type.namespaceURI)?:'xsd'}:${b.type.localPart}.",
+					type: 'element', breaks:ctx.exchange?true:null, exchange: a.exchange)]
+				}
+		}
 		[]
 	}
 

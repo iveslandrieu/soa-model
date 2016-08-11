@@ -13,6 +13,8 @@ package org.membrane_soa.soa_model.diff
 
 import groovy.xml.MarkupBuilder
 
+import java.io.InputStream;
+
 import javax.xml.transform.*
 
 import com.predic8.schema.Element
@@ -261,7 +263,7 @@ class WSDLDiffCLI extends AbstractDiffCLI{
 		new WSDLParser()
 	}
 
-	public getStylesheet(format) {
+	public InputStream getStylesheet(String format) {
 		this.class.getResourceAsStream("/style/wsdl2"+format+".xsl")
 	}
 

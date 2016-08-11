@@ -16,6 +16,8 @@ package org.membrane_soa.soa_model.diff
 
 import org.membrane_soa.soa_model.ResourceLists
 
+import java.io.InputStream;
+
 import javax.xml.transform.Result
 import javax.xml.transform.Source
 import javax.xml.transform.Transformer
@@ -86,10 +88,16 @@ abstract class AbstractDiffCLI {
     }
   }
   
+  abstract InputStream getStylesheet(String format);
+  
   public transform(ByteArrayInputStream input, String format){
     try {
       TransformerFactory xformFactory = TransformerFactory.newInstance()
-      Source xsl = new StreamSource(getStylesheet(format))
+	  InputStream styleSheet = getStylesheet(format);
+	  if(styleSheet == null) {
+		  throw new AssertionError("Failed to load stylesheet for format "+format);
+	  }
+      Source xsl = new StreamSource(styleSheet)
       Transformer stylesheet = xformFactory.newTransformer(xsl)
       Source inputXML  = new StreamSource(input)
 			

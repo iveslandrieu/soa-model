@@ -71,8 +71,12 @@ class SchemaDiffCLI extends AbstractDiffCLI{
     new SchemaParser()
   }
   
-  public getStylesheet(format) {
-    this.class.getResourceAsStream("/style/schema2"+format+".xsl")
+  public InputStream getStylesheet(String format) {
+    InputStream styleSheet = this.class.getResourceAsStream("/style/schema2"+format+".xsl")
+	if(styleSheet == null) {
+		throw new AssertionError("Failed to load stylesheet for format "+format);
+	}
+  	styleSheet
   }
 
   public getDiffGenerator(doc1, doc2) {

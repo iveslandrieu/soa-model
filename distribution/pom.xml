@@ -42,10 +42,10 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>${basedir}/src/main</sourceDirectory>
+		<sourceDirectory>${project.basedir}/src/main</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
 			</resource>
 		</resources>
 		<plugins>
@@ -75,12 +75,6 @@
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.4</version>
-				<configuration>
-					<excludes>
-						<exclude>style/**</exclude>
-						<exclude>web/**</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
